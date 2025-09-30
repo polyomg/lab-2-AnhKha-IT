@@ -15,13 +15,14 @@
         <button>Save</button>
     </form>
 
-    <h3>Sản phẩm mặc định (GET)</h3>
-    <ul th:if="${savedProduct != null}">
-    <li th:text="${savedProduct.name != null ? savedProduct.name : 'Chưa nhập tên'}">?name</li>
-    <li th:text="${savedProduct.price != null ? savedProduct.price : 'Chưa nhập giá'}">?price</li>
-	</ul>
+    <!-- Sản phẩm mặc định luôn hiển thị -->
+    <h3>Sản phẩm mặc định</h3>
+    <ul th:if="${productDefault != null}">
+        <li th:text="${productDefault.name != null ? productDefault.name : 'Chưa nhập tên'}">?name</li>
+        <li th:text="${productDefault.price != null ? productDefault.price : 'Chưa nhập giá'}">?price</li>
+    </ul>
 
-    <h3>Sản phẩm vừa lưu (POST)</h3>
+    <h3>Sản phẩm vừa lưu</h3>
     <ul th:if="${savedProduct != null}">
         <li th:text="${savedProduct.name}">?name</li>
         <li th:text="${savedProduct.price}">?price</li>

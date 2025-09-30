@@ -14,6 +14,14 @@ import poly.edu.model.Product;
 
 @Controller
 public class ProductControllerB4 {
+	
+	private static List<Product> productList = new ArrayList<>();
+	
+	static {
+        for (int i = 1; i <= 20; i++) {
+            productList.add(new Product("Product " + i, (double) i * 10));
+        }
+    }
 
     @GetMapping("/product/formB4")
     public String form(Model model,
@@ -24,10 +32,9 @@ public class ProductControllerB4 {
         Product p = new Product("iPhone 30", 5000.0);
         model.addAttribute("productDefault", p);
 
-        // danh sách 20 sản phẩm
+        // danh sách sản phẩm
         List<Product> all = getItems();
 
-        // tính phân trang
         int totalPages = (int) Math.ceil((double) all.size() / size);
         int fromIndex = (page - 1) * size;
         int toIndex = Math.min(fromIndex + size, all.size());
@@ -47,6 +54,8 @@ public class ProductControllerB4 {
                        Model model,
                        @RequestParam(defaultValue = "1") int page,
                        @RequestParam(defaultValue = "5") int size) {
+    	
+    	productList.add(p); // thêm vào list chung
 
         // sản phẩm vừa lưu
         model.addAttribute("savedProduct", p);
@@ -72,10 +81,7 @@ public class ProductControllerB4 {
 
     @ModelAttribute("allItems")
     public List<Product> getItems() {
-        List<Product> list = new ArrayList<>();
-        for (int i = 1; i <= 20; i++) {
-            list.add(new Product("Product " + i, (double) i * 10));
-        }
-        return list;
+        // 🔥 Trả về list chung, không tạo mới
+        return productList;
     }
 }
